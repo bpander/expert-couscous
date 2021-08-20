@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Authorized, Field, ID, ObjectType } from 'type-graphql';
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
 
 @Entity()
@@ -17,6 +17,7 @@ export class User extends BaseEntity {
     @Field(() => String)
     lastName: string;
 
+    @Authorized()
     @Column()
     @Field(() => Number)
     age: number;

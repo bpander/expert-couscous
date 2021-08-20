@@ -19,6 +19,9 @@ const startUp = async () => {
     // setup express app here
     const schema = await buildSchema({
         resolvers: [UserResolver],
+        authChecker: (/* resolverData, roles */) => {
+            return true;
+        },
     });
     app.use('/graphql', graphqlHTTP({
         schema,
