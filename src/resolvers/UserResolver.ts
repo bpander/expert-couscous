@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Mutation, InputType, Field } from 'type-graphql';
+import { Resolver, Query, Arg, Mutation, InputType, Field, Ctx } from 'type-graphql';
 import { getRepository } from 'typeorm';
 import { User } from '../entity/User';
 
@@ -21,6 +21,11 @@ class UserInput {
 export class UserResolver {
 
     repo = getRepository(User);
+
+    @Query(() => User, { nullable: true })
+    me(@Ctx() context) {
+        return this.repo.findOne({ id: context.userId });
+    }
 
     @Mutation(() => User)
     upsertUser(@Arg('user') user: UserInput) {
